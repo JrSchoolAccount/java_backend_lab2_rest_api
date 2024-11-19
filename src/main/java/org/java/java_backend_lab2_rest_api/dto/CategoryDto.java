@@ -1,4 +1,4 @@
-package org.java.java_backend_lab2_rest_api.dto.CategoryDto;
+package org.java.java_backend_lab2_rest_api.dto;
 
 import org.java.java_backend_lab2_rest_api.entity.CategoryEntity;
 
