@@ -1,11 +1,12 @@
 package org.java.java_backend_lab2_rest_api.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.java.java_backend_lab2_rest_api.dto.CategoryCreateDto;
 import org.java.java_backend_lab2_rest_api.dto.CategoryDto;
 import org.java.java_backend_lab2_rest_api.service.CategoryService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +24,12 @@ public class CategoryController {
     @GetMapping
     public List<CategoryDto> getAllCategories() {
         return categoryService.allCategories();
+    }
+
+    @PostMapping
+    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryCreateDto categoryCreateDto) {
+        CategoryDto newCategory = categoryService.addCategory(categoryCreateDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(newCategory);
     }
 }
