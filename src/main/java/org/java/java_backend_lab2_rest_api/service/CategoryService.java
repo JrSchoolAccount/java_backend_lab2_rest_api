@@ -10,13 +10,13 @@ import java.util.List;
 public class CategoryService {
     CategoryRepository categoryRepository;
 
-public CategoryService(CategoryRepository categoryRepository) {
-    this.categoryRepository = categoryRepository;
-}
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
-public List<CategoryDto> allCategories() {
-    return categoryRepository.findAll().stream()
-            .map(CategoryDto::fromCategory)
-            .toList();
-}
+    public List<CategoryDto> allCategories() {
+        return categoryRepository.findAll().stream()
+                .map(CategoryDto::fromCategory)
+                .toList();
+    }
 }
