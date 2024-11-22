@@ -28,7 +28,7 @@ VALUES
     ('Parking Lot', '🅿️', 'Spaces designated for vehicle parking'),
     ('Police Station', '🚔', 'Facilities for law enforcement and public safety');
 
-INSERT INTO place (name, category_id, user_id, status, description, coordinates)
+INSERT INTO place (name, category_id, user_id, status, description, coordinate)
 VALUES
     ('Central Park', 3, 1, 'public', 'A large public park in the city center', ST_GeomFromText('POINT(-73.968285 40.785091)', 4326)),
     ('Museum of Modern Art', 4, 1, 'public', 'A museum featuring modern and contemporary art', ST_GeomFromText('POINT(-73.977621 40.761433)', 4326)),

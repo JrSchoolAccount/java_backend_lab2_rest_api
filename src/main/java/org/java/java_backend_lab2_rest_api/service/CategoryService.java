@@ -27,6 +27,6 @@ public class CategoryService {
 
         category = categoryRepository.save(category);
 
-        return new CategoryDto(category.getName(), category.getSymbol(), category.getDescription());
+        return new CategoryDto(category.getId(), category.getName(), category.getSymbol(), category.getDescription());
     }
 }

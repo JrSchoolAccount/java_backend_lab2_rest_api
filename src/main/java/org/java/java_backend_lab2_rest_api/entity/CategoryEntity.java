@@ -23,7 +23,7 @@ public class CategoryEntity {
 
     @Size(max = 55)
     @NotNull
-    @Column(name = "symbol", unique = true, nullable = false)
+    @Column(name = "symbol", nullable = false)
     private String symbol;
 
     @Size(max = 255)

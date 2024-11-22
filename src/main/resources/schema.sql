@@ -12,11 +12,11 @@ CREATE TABLE IF NOT EXISTS place (
     name          VARCHAR(255) NOT NULL,
     category_id   INT NOT NULL,
     user_id       INT NOT NULL,
-    status        ENUM('public', 'private') DEFAULT 'private',
+    status        ENUM('PUBLIC', 'PRIVATE') DEFAULT 'PRIVATE',
     description   TEXT,
-    coordinates   GEOMETRY NOT NULL SRID 4326,
+    coordinate   GEOMETRY NOT NULL SRID 4326,
     created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted_at    TIMESTAMP DEFAULT NULL,
+    deleted_at    TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES category (id)
     );
