@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS category (
     updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     );
 
-CREATE TABLE IF NOT EXISTS place (
+CREATE TABLE IF NOT EXISTS location (
     id            INT AUTO_INCREMENT PRIMARY KEY,
     name          VARCHAR(255) NOT NULL,
     category_id   INT NOT NULL,
@@ -20,3 +20,5 @@ CREATE TABLE IF NOT EXISTS place (
     deleted_at    TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES category (id)
     );
+
+CREATE SPATIAL INDEX idx_location_coordinate ON location(coordinate);

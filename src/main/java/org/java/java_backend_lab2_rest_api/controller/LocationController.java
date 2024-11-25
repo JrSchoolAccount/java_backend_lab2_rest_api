@@ -28,4 +28,13 @@ public class LocationController {
         }
         return locationService.allLocations();
     }
+
+    @GetMapping("/within-radius")
+    public List<LocationDto> getPlacesWithinRadius(
+            @RequestParam double longitude,
+            @RequestParam double latitude,
+            @RequestParam double radius) {
+
+        return locationService.findAllLocationsWithinRadius(latitude, longitude, radius);
+    }
 }
