@@ -11,8 +11,8 @@ import org.geolatte.geom.Point;
 @Getter
 @Setter
 @Entity
-@Table(name = "place", schema = "mydatabase")
-public class PlaceEntity {
+@Table(name = "location", schema = "mydatabase")
+public class LocationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -34,7 +34,7 @@ public class PlaceEntity {
     @Enumerated(EnumType.STRING)
     @NotNull
     @Column(name = "status", nullable = false)
-    private PlaceStatus status;
+    private LocationStatus status;
 
     @Size(max = 255)
     @NotNull
