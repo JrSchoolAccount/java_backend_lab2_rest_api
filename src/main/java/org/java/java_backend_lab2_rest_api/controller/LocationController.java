@@ -3,8 +3,6 @@ package org.java.java_backend_lab2_rest_api.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.java.java_backend_lab2_rest_api.dto.LocationDto;
 import org.java.java_backend_lab2_rest_api.service.LocationService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,12 +33,5 @@ public class LocationController {
             @RequestParam double radius) {
 
         return locationService.findAllLocationsWithinRadius(latitude, longitude, radius);
-    }
-
-    @PostMapping
-    public ResponseEntity<LocationDto> createLocation(@RequestBody LocationCreateDto locationCreateDto) {
-        LocationDto newLocation = locationService.addLocation(locationCreateDto);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(newLocation);
     }
 }

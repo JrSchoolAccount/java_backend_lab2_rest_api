@@ -12,10 +12,17 @@ public record LocationDto(String name,
                           Double longitude,
                           Double latitude) {
 
+    public LocationDto(String name, Integer categoryId, Integer userId, String status, String description, Point<G2D> coordinate) {
+        this(name,
+                categoryId,
+                userId,
+                status,
+                description,
+                coordinate != null ? coordinate.getPosition().getLon() : null,
+                coordinate != null ? coordinate.getPosition().getLat() : null);
+    }
+
     public static LocationDto fromLocation(LocationEntity location) {
-        Point<G2D> coordinate = location.getCoordinate();
-        Double longitude = coordinate != null ? coordinate.getPosition().getLon() : null;
-        Double latitude = coordinate != null ? coordinate.getPosition().getLat() : null;
 
         return new LocationDto(
                 location.getName(),
@@ -23,8 +30,7 @@ public record LocationDto(String name,
                 location.getUser(),
                 location.getStatus().toString(),
                 location.getDescription(),
-                longitude,
-                latitude
+                location.getCoordinate()
         );
     }
 }
