@@ -43,4 +43,17 @@ public class LocationService {
                 .map(LocationDto::fromLocation)
                 .toList();
     }
+
+    public LocationDto addLocation(LocationCreateDto locationCreateDto) {
+        LocationEntity location = locationCreateDto.toLocationEntity();
+
+        location = locationRepository.save(location);
+
+        return new LocationDto(location.getName(),
+                location.getCategory().getId(),
+                location.getUser(),
+                location.getStatus().toString(),
+                location.getDescription(),
+                location.getCoordinate());
+    }
 }

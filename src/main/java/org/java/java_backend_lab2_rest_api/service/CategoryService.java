@@ -17,9 +17,7 @@ public class CategoryService {
     }
 
     public List<CategoryDto> allCategories() {
-        return categoryRepository.findAll().stream()
-                .map(CategoryDto::fromCategory)
-                .toList();
+        return categoryRepository.findAll().stream().map(CategoryDto::fromCategory).toList();
     }
 
     public CategoryDto addCategory(CategoryCreateDto categoryCreateDto) {
