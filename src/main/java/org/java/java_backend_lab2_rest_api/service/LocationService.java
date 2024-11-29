@@ -1,10 +1,13 @@
 package org.java.java_backend_lab2_rest_api.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.geolatte.geom.G2D;
 import org.geolatte.geom.Geometries;
 import org.geolatte.geom.Point;
 import org.geolatte.geom.crs.CoordinateReferenceSystems;
+import org.java.java_backend_lab2_rest_api.dto.LocationCreateDto;
 import org.java.java_backend_lab2_rest_api.dto.LocationDto;
+import org.java.java_backend_lab2_rest_api.entity.CategoryEntity;
 import org.java.java_backend_lab2_rest_api.entity.LocationEntity;
 import org.java.java_backend_lab2_rest_api.entity.LocationStatus;
 import org.java.java_backend_lab2_rest_api.repository.LocationRepository;
@@ -44,16 +47,13 @@ public class LocationService {
                 .toList();
     }
 
-    public LocationDto addLocation(LocationCreateDto locationCreateDto) {
-        LocationEntity location = locationCreateDto.toLocationEntity();
+    public LocationDto addLocation(LocationCreateDto locationCreateDto, Integer userId) {
+        CategoryEntity categoryEntity = locationRepository.findCategoryById(locationCreateDto.categoryId());
+
+        LocationEntity location = locationCreateDto.toLocationEntity(categoryEntity, userId);
 
         location = locationRepository.save(location);
 
-        return new LocationDto(location.getName(),
-                location.getCategory().getId(),
-                location.getUser(),
-                location.getStatus().toString(),
-                location.getDescription(),
-                location.getCoordinate());
+        return LocationDto.fromLocation(location);
     }
 }

@@ -1,6 +1,7 @@
 package org.java.java_backend_lab2_rest_api.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.java.java_backend_lab2_rest_api.dto.LocationCreateDto;
 import org.java.java_backend_lab2_rest_api.dto.LocationDto;
 import org.java.java_backend_lab2_rest_api.service.LocationService;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,10 @@ public class LocationController {
 
     @PostMapping
     public ResponseEntity<LocationDto> createLocation(@RequestBody LocationCreateDto locationCreateDto) {
-        LocationDto newLocation = locationService.addLocation(locationCreateDto);
+
+        int userId = 2;
+
+        LocationDto newLocation = locationService.addLocation(locationCreateDto, userId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newLocation);
     }
