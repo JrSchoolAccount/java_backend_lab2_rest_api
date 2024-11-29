@@ -4,7 +4,8 @@ import org.geolatte.geom.G2D;
 import org.geolatte.geom.Point;
 import org.java.java_backend_lab2_rest_api.entity.LocationEntity;
 
-public record LocationDto(String name,
+public record LocationDto(Integer id,
+                          String name,
                           Integer categoryId,
                           Integer userId,
                           String status,
@@ -12,8 +13,9 @@ public record LocationDto(String name,
                           Double longitude,
                           Double latitude) {
 
-    public LocationDto(String name, Integer categoryId, Integer userId, String status, String description, Point<G2D> coordinate) {
-        this(name,
+    public LocationDto(Integer id, String name, Integer categoryId, Integer userId, String status, String description, Point<G2D> coordinate) {
+        this(id,
+                name,
                 categoryId,
                 userId,
                 status,
@@ -25,6 +27,7 @@ public record LocationDto(String name,
     public static LocationDto fromLocation(LocationEntity location) {
 
         return new LocationDto(
+                location.getId(),
                 location.getName(),
                 location.getCategory().getId(),
                 location.getUser(),

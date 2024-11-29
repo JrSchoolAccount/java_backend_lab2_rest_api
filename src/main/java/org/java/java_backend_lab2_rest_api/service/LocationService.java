@@ -7,6 +7,7 @@ import org.geolatte.geom.Point;
 import org.geolatte.geom.crs.CoordinateReferenceSystems;
 import org.java.java_backend_lab2_rest_api.dto.LocationCreateDto;
 import org.java.java_backend_lab2_rest_api.dto.LocationDto;
+import org.java.java_backend_lab2_rest_api.dto.LocationUpdateDto;
 import org.java.java_backend_lab2_rest_api.entity.CategoryEntity;
 import org.java.java_backend_lab2_rest_api.entity.LocationEntity;
 import org.java.java_backend_lab2_rest_api.entity.LocationStatus;
@@ -60,9 +61,9 @@ public class LocationService {
     public LocationDto updateLocation(Integer id, LocationUpdateDto locationUpdateDto, Integer userId) {
         LocationEntity location = locationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 
-        location.setName(locationUpdateDto.getName());
-        location.setStatus(LocationStatus.valueOf(locationUpdateDto.getStatus()));
-        location.setDescription(locationUpdateDto.getDescription());
+        location.setName(locationUpdateDto.name());
+        location.setStatus(LocationStatus.valueOf(locationUpdateDto.status().toUpperCase()));
+        location.setDescription(locationUpdateDto.description());
 
         location = locationRepository.save(location);
 
