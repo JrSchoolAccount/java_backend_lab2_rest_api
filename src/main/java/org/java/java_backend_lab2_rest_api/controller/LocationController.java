@@ -50,7 +50,7 @@ public class LocationController {
 
     @PutMapping("/{id}")
     public ResponseEntity<LocationDto> updateLocation(@PathVariable Integer id,
-                                                      @RequestBody LocationDto locationUpdateDto) {
+                                                      @RequestBody LocationUpdateDto locationUpdateDto) {
         int userId = 2;
 
         LocationDto updatedLocation = locationService.updateLocation(id, locationUpdateDto, userId);

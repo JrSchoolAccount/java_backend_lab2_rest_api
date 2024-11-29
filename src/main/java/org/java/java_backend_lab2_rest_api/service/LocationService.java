@@ -56,4 +56,16 @@ public class LocationService {
 
         return LocationDto.fromLocation(location);
     }
+
+    public LocationDto updateLocation(Integer id, LocationUpdateDto locationUpdateDto, Integer userId) {
+        LocationEntity location = locationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+
+        location.setName(locationUpdateDto.getName());
+        location.setStatus(LocationStatus.valueOf(locationUpdateDto.getStatus()));
+        location.setDescription(locationUpdateDto.getDescription());
+
+        location = locationRepository.save(location);
+
+        return LocationDto.fromLocation(location);
+    }
 }
