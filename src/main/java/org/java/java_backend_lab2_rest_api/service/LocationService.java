@@ -28,13 +28,13 @@ public class LocationService {
     }
 
     public List<LocationDto> allLocations() {
-        return locationRepository.findAll().stream()
+        return locationRepository.findAllActiveLocations().stream()
                 .map(LocationDto::fromLocation)
                 .toList();
     }
 
     public List<LocationDto> allLocationsInCategory(int categoryId) {
-        return locationRepository.findByCategory_Id(categoryId).stream()
+        return locationRepository.findByCategory_IdAndDeletedAtIsNull(categoryId).stream()
                 .filter(location -> location.getStatus() == LocationStatus.PUBLIC)
                 .map(LocationDto::fromLocation)
                 .toList();
@@ -43,7 +43,7 @@ public class LocationService {
     public List<LocationDto> findAllLocationsWithinRadius(double longitude, double latitude, double radius) {
         Point<G2D> center = Geometries.mkPoint(new G2D(longitude, latitude), CoordinateReferenceSystems.WGS84);
 
-        List<LocationEntity> locations = locationRepository.findAllWithinRadius(center, radius);
+        List<LocationEntity> locations = locationRepository.findActiveLocationsWithinRadius(center, radius);
 
         return locations.stream()
                 .map(LocationDto::fromLocation)
@@ -51,7 +51,7 @@ public class LocationService {
     }
 
     public LocationDto addLocation(LocationCreateDto locationCreateDto, Integer userId) {
-        CategoryEntity categoryEntity = locationRepository.findCategoryById(locationCreateDto.categoryId());
+        CategoryEntity categoryEntity = locationRepository.findActiveLocationsByCategory(locationCreateDto.categoryId());
 
         LocationEntity location = locationCreateDto.toLocationEntity(categoryEntity, userId);
 

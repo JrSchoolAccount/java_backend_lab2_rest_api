@@ -12,17 +12,17 @@ import java.util.List;
 
 public interface LocationRepository extends JpaRepository<LocationEntity, Integer> {
 
-    List<LocationEntity> findByCategory_Id(int categoryId);
+    List<LocationEntity> findByCategory_IdAndDeletedAtIsNull(int categoryId);
 
-    @Query("SELECT p FROM LocationEntity p WHERE distance(p.coordinate, :center) <= :radius")
-    List<LocationEntity> findAllWithinRadius(
+    @Query("SELECT l FROM LocationEntity l WHERE l.deletedAt IS NULL AND distance(l.coordinate, :center) <= :radius")
+    List<LocationEntity> findActiveLocationsWithinRadius(
             @Param("center") Point<G2D> center,
             @Param("radius") double radius
     );
 
-    @Query("SELECT c FROM CategoryEntity c WHERE c.id = :categoryId")
-    CategoryEntity findCategoryById(@Param("categoryId") Integer categoryId);
+    @Query("SELECT l FROM LocationEntity l WHERE l.deletedAt IS NULL AND l.category.id = :categoryId")
+    CategoryEntity findActiveLocationsByCategory(@Param("categoryId") Integer categoryId);
 
     @Query("SELECT l FROM LocationEntity l WHERE l.deletedAt IS NULL")
-    List<LocationEntity> findAllActive();
+    List<LocationEntity> findAllActiveLocations();
 }
