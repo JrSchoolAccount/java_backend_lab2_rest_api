@@ -22,4 +22,7 @@ public interface LocationRepository extends JpaRepository<LocationEntity, Intege
 
     @Query("SELECT c FROM CategoryEntity c WHERE c.id = :categoryId")
     CategoryEntity findCategoryById(@Param("categoryId") Integer categoryId);
+
+    @Query("SELECT l FROM LocationEntity l WHERE l.deletedAt IS NULL")
+    List<LocationEntity> findAllActive();
 }
