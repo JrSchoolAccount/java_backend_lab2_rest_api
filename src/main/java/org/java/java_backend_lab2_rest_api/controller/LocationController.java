@@ -1,5 +1,6 @@
 package org.java.java_backend_lab2_rest_api.controller;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.java.java_backend_lab2_rest_api.dto.LocationCreateDto;
 import org.java.java_backend_lab2_rest_api.dto.LocationDto;
@@ -51,7 +52,7 @@ public class LocationController {
 
     @PutMapping("/{id}")
     public ResponseEntity<LocationDto> updateLocation(@PathVariable Integer id,
-                                                      @RequestBody LocationUpdateDto locationUpdateDto) {
+                                                      @Valid @RequestBody LocationUpdateDto locationUpdateDto) {
         int userId = 2;
 
         LocationDto updatedLocation = locationService.updateLocation(id, locationUpdateDto, userId);
