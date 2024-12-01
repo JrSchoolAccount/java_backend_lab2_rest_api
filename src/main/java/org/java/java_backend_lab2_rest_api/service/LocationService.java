@@ -14,6 +14,8 @@ import org.java.java_backend_lab2_rest_api.entity.LocationStatus;
 import org.java.java_backend_lab2_rest_api.repository.LocationRepository;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -68,5 +70,16 @@ public class LocationService {
         location = locationRepository.save(location);
 
         return LocationDto.fromLocation(location);
+    }
+
+    public void deleteLocation(Integer id, Integer userId) throws AccessDeniedException {
+        LocationEntity location = locationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+
+        if (!location.getUser().equals(userId)) {
+            throw new AccessDeniedException("User not authorized to delete this location");
+        }
+
+        location.setDeletedAt(LocalDateTime.now());
+        locationRepository.save(location);
     }
 }
