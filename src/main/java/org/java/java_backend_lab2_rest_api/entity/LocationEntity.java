@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.geolatte.geom.G2D;
 import org.geolatte.geom.Point;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -43,4 +45,11 @@ public class LocationEntity {
 
     @Column(name = "coordinate", columnDefinition = "geometry not null")
     private Point<G2D> coordinate;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
+    public boolean isDeleted() {
+        return deletedAt != null;
+    }
 }
