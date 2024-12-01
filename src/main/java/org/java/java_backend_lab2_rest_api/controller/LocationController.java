@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController
@@ -58,5 +59,14 @@ public class LocationController {
         LocationDto updatedLocation = locationService.updateLocation(id, locationUpdateDto, userId);
 
         return ResponseEntity.ok(updatedLocation);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteLocation(@PathVariable Integer id) throws AccessDeniedException {
+        int userId = 2;
+
+        locationService.deleteLocation(id, userId);
+
+        return ResponseEntity.noContent().build();
     }
 }
