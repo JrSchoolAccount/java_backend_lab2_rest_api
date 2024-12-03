@@ -20,7 +20,7 @@ public interface LocationRepository extends JpaRepository<LocationEntity, Intege
             @Param("radius") double radius
     );
 
-    @Query("SELECT l FROM LocationEntity l WHERE l.deletedAt IS NULL AND l.category.id = :categoryId")
+    @Query("SELECT c FROM CategoryEntity c WHERE c.id = :categoryId")
     CategoryEntity findActiveLocationsByCategory(@Param("categoryId") Integer categoryId);
 
     @Query("SELECT l FROM LocationEntity l WHERE l.deletedAt IS NULL")
