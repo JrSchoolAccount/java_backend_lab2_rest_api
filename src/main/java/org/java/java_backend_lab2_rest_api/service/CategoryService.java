@@ -3,6 +3,8 @@ package org.java.java_backend_lab2_rest_api.service;
 import org.java.java_backend_lab2_rest_api.dto.CategoryCreateDto;
 import org.java.java_backend_lab2_rest_api.dto.CategoryDto;
 import org.java.java_backend_lab2_rest_api.entity.CategoryEntity;
+import org.java.java_backend_lab2_rest_api.exception.DuplicateResourceException;
+import org.java.java_backend_lab2_rest_api.exception.ResourceNotFoundException;
 import org.java.java_backend_lab2_rest_api.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +23,8 @@ public class CategoryService {
     }
 
     public CategoryDto addCategory(CategoryCreateDto categoryCreateDto) {
-        String categoryName = categoryCreateDto.name();
-
-        if (categoryRepository.existsByName(categoryName)) {
-            throw new IllegalArgumentException("Category name must be unique");
+        if (categoryRepository.existsByName(categoryCreateDto.name())) {
+            throw new DuplicateResourceException("Category name must be unique.");
         }
 
         CategoryEntity category = categoryCreateDto.toCategoryEntity();
@@ -32,5 +32,11 @@ public class CategoryService {
         category = categoryRepository.save(category);
 
         return new CategoryDto(category.getId(), category.getName(), category.getSymbol(), category.getDescription());
+    }
+
+    public CategoryDto getCategoryById(int id) {
+        return categoryRepository.findById(id)
+                .map(category -> new CategoryDto(category.getId(), category.getName(), category.getSymbol(), category.getDescription()))
+                .orElseThrow(() -> new ResourceNotFoundException("Category with ID " + id + " not found."));
     }
 }

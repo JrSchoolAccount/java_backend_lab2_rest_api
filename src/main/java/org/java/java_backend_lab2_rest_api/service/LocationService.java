@@ -11,6 +11,7 @@ import org.java.java_backend_lab2_rest_api.dto.LocationUpdateDto;
 import org.java.java_backend_lab2_rest_api.entity.CategoryEntity;
 import org.java.java_backend_lab2_rest_api.entity.LocationEntity;
 import org.java.java_backend_lab2_rest_api.entity.LocationStatus;
+import org.java.java_backend_lab2_rest_api.exception.ResourceNotFoundException;
 import org.java.java_backend_lab2_rest_api.repository.LocationRepository;
 import org.springframework.stereotype.Service;
 
@@ -72,14 +73,14 @@ public class LocationService {
         return LocationDto.fromLocation(location);
     }
 
-    public void deleteLocation(Integer id, Integer userId) throws AccessDeniedException {
-        LocationEntity location = locationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public void deleteLocation(int id, int userId) throws AccessDeniedException {
+        LocationEntity location = locationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Location with ID " + id + " not found."));
 
-        if (!location.getUser().equals(userId)) {
-            throw new AccessDeniedException("User not authorized to delete this location");
+        if (location.getUser() != userId) {
+            throw new AccessDeniedException("You do not have permission to delete this location.");
         }
 
-        location.setDeletedAt(LocalDateTime.now());
-        locationRepository.save(location);
+        locationRepository.delete(location);
     }
 }
