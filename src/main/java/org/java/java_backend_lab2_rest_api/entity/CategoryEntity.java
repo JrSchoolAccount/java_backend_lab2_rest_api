@@ -18,7 +18,7 @@ public class CategoryEntity {
 
     @Size(max = 255)
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
     @Size(max = 55)

@@ -21,6 +21,12 @@ public class CategoryService {
     }
 
     public CategoryDto addCategory(CategoryCreateDto categoryCreateDto) {
+        String categoryName = categoryCreateDto.name();
+
+        if (categoryRepository.existsByName(categoryName)) {
+            throw new IllegalArgumentException("Category name must be unique");
+        }
+
         CategoryEntity category = categoryCreateDto.toCategoryEntity();
 
         category = categoryRepository.save(category);
