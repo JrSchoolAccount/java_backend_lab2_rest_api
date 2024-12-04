@@ -30,7 +30,7 @@ public class Security {
                         auth
                                 .requestMatchers(GET, "/api/categories/**").permitAll()
                                 .requestMatchers(POST, "/api/categories/**").hasAuthority("SCOPE_admin")
-                                .requestMatchers("/api/locations/**").permitAll()
+                                .requestMatchers(GET,"/api/locations/**").permitAll()
                                 .anyRequest().denyAll())
                 .httpBasic(Customizer.withDefaults());
                 //.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));

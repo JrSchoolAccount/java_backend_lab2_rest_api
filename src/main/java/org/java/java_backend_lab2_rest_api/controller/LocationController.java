@@ -25,11 +25,18 @@ public class LocationController {
     }
 
     @GetMapping
-    public List<LocationDto> getAllLocations(@RequestParam(required = false) Integer categoryId) {
-        if (categoryId != null) {
-            return locationService.allLocationsInCategory(categoryId);
+    public List<LocationDto> getAllLocations(@RequestParam(required = false) Integer withCategoryId) {
+        if (withCategoryId != null) {
+            return locationService.allLocationsInCategory(withCategoryId);
         }
         return locationService.allLocations();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<LocationDto> getLocationById(@PathVariable Integer id) {
+        LocationDto locationDto = locationService.getLocationById(id);
+
+        return ResponseEntity.ok(locationDto);
     }
 
     @GetMapping("/within-radius")
