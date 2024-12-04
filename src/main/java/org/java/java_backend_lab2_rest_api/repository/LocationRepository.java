@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface LocationRepository extends JpaRepository<LocationEntity, Integer> {
 
-    List<LocationEntity> findLocationsByCategory_IdAndDeletedAtIsNull(int categoryId);
+    List<LocationEntity> findLocationByCategory_IdAndDeletedAtIsNull(int categoryId);
 
     @Query("SELECT l FROM LocationEntity l WHERE l.deletedAt IS NULL AND distance(l.coordinate, :center) <= :radius")
     List<LocationEntity> findActiveLocationsWithinRadius(

@@ -33,8 +33,8 @@ public class LocationService {
                 .toList();
     }
 
-    public List<LocationDto> allLocationsInCategory(int categoryId) {
-        return locationRepository.findLocationsByCategory_IdAndDeletedAtIsNull(categoryId).stream()
+    public List<LocationDto> allPublicLocationsInCategory(int categoryId) {
+        return locationRepository.findLocationByCategory_IdAndDeletedAtIsNull(categoryId).stream()
                 .filter(location -> location.getStatus() == LocationStatus.PUBLIC)
                 .map(LocationDto::fromLocation)
                 .toList();

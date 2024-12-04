@@ -25,9 +25,9 @@ public class LocationController {
     }
 
     @GetMapping
-    public List<LocationDto> getAllLocations(@RequestParam(required = false) Integer withCategoryId) {
-        if (withCategoryId != null) {
-            return locationService.allLocationsInCategory(withCategoryId);
+    public List<LocationDto> getAllLocations(@RequestParam(required = false) Integer categoryId) {
+        if (categoryId != null) {
+            return locationService.allPublicLocationsInCategory(categoryId);
         }
         return locationService.allLocations();
     }
