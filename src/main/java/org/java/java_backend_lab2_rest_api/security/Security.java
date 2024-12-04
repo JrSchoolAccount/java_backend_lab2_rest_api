@@ -31,6 +31,7 @@ public class Security {
                                 .requestMatchers(GET, "/api/categories/**").permitAll()
                                 .requestMatchers(POST, "/api/categories/**").hasAuthority("SCOPE_admin")
                                 .requestMatchers(GET,"/api/locations/**").permitAll()
+                                .requestMatchers(POST,"/api/locations/**").authenticated()
                                 .anyRequest().denyAll())
                 .httpBasic(Customizer.withDefaults());
                 //.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));

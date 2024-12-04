@@ -30,8 +30,8 @@ VALUES
 
 INSERT INTO location (name, category_id, user_id, status, description, coordinate)
 VALUES
-    ('Central Park', 3, 1, 'public', 'A large public park in the city center', ST_GeomFromText('POINT(-73.968285 40.785091)', 4326)),
-    ('Museum of Modern Art', 4, 1, 'public', 'A museum featuring modern and contemporary art', ST_GeomFromText('POINT(-73.977621 40.761433)', 4326)),
-    ('Joe\'s Coffee', 2, 1, 'private', 'A cozy coffee shop known for its espresso', ST_GeomFromText('POINT(-73.985135 40.748817)', 4326)),
-    ('Oceanview Beach', 15, 1, 'public', 'A relaxing beach with great ocean views', ST_GeomFromText('POINT(-74.005974 40.712776)', 4326)),
-    ('Grandview Hotel', 8, 1, 'public', 'A luxurious hotel with a panoramic city view', ST_GeomFromText('POINT(-73.985656 40.748944)', 4326));
+    ('Central Park', 3, 'jr', 'public', 'A large public park in the city center', ST_GeomFromText('POINT(-73.968285 40.785091)', 4326)),
+    ('Museum of Modern Art', 4, 'jr', 'public', 'A museum featuring modern and contemporary art', ST_GeomFromText('POINT(-73.977621 40.761433)', 4326)),
+    ('Joe\'s Coffee', 2, 'martin', 'private', 'A cozy coffee shop known for its espresso', ST_GeomFromText('POINT(-73.985135 40.748817)', 4326)),
+    ('Oceanview Beach', 15, 'jr', 'public', 'A relaxing beach with great ocean views', ST_GeomFromText('POINT(-74.005974 40.712776)', 4326)),
+    ('Grandview Hotel', 8, 'jr', 'public', 'A luxurious hotel with a panoramic city view', ST_GeomFromText('POINT(-73.985656 40.748944)', 4326));

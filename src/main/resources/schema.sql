@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS location (
     id            INT AUTO_INCREMENT PRIMARY KEY,
     name          VARCHAR(255) NOT NULL,
     category_id   INT NOT NULL,
-    user_id       INT NOT NULL,
+    user_id       VARCHAR(255) NOT NULL,
     status        ENUM('PUBLIC', 'PRIVATE') DEFAULT 'PRIVATE',
     description   TEXT,
     coordinate   GEOMETRY NOT NULL SRID 4326,
