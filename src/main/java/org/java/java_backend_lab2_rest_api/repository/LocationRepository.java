@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface LocationRepository extends JpaRepository<LocationEntity, Integer> {
 
@@ -26,5 +27,6 @@ public interface LocationRepository extends JpaRepository<LocationEntity, Intege
     @Query("SELECT l FROM LocationEntity l WHERE l.deletedAt IS NULL")
     List<LocationEntity> findAllActiveLocations();
 
-
+    @Query("SELECT l FROM LocationEntity l WHERE l.id = :id AND l.status = 'PUBLIC' AND l.deletedAt IS NULL")
+    Optional<LocationEntity> findActivePublicLocationById(@Param("id") Integer id);
 }

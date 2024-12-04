@@ -85,7 +85,7 @@ public class LocationService {
     }
 
     public LocationDto getPublicLocationById(Integer id) {
-        return locationRepository.findPublicLocationById(id)
+        return locationRepository.findActivePublicLocationById(id)
                 .map(LocationDto::fromLocation)
                 .orElseThrow(() -> new ResourceNotFoundException("Location with ID " + id + " not found or is not public."));
     }
