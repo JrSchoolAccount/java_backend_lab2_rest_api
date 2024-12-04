@@ -16,7 +16,6 @@ import org.java.java_backend_lab2_rest_api.repository.LocationRepository;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -77,6 +76,7 @@ public class LocationService {
         LocationEntity location = locationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Location with ID " + id + " not found."));
 
+        // Change to !admin instead of location user check
         if (location.getUser() != userId) {
             throw new AccessDeniedException("You do not have permission to delete this location.");
         }
