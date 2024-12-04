@@ -35,7 +35,6 @@ public class LocationController {
     @GetMapping("/{id}")
     public ResponseEntity<LocationDto> getPublicLocationById(@PathVariable Integer id) {
         LocationDto locationDto = locationService.getPublicLocationById(id);
-
         return ResponseEntity.ok(locationDto);
     }
 

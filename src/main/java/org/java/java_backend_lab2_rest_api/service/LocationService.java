@@ -34,7 +34,7 @@ public class LocationService {
     }
 
     public List<LocationDto> allLocationsInCategory(int categoryId) {
-        return locationRepository.findByCategory_IdAndDeletedAtIsNull(categoryId).stream()
+        return locationRepository.findLocationsByCategory_IdAndDeletedAtIsNull(categoryId).stream()
                 .filter(location -> location.getStatus() == LocationStatus.PUBLIC)
                 .map(LocationDto::fromLocation)
                 .toList();
@@ -82,5 +82,11 @@ public class LocationService {
         }
 
         locationRepository.delete(location);
+    }
+
+    public LocationDto getPublicLocationById(Integer id) {
+        return locationRepository.findPublicLocationById(id)
+                .map(LocationDto::fromLocation)
+                .orElseThrow(() -> new ResourceNotFoundException("Location with ID " + id + " not found or is not public."));
     }
 }
