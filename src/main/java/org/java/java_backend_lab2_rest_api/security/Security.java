@@ -32,6 +32,16 @@ public class Security {
                                 .requestMatchers(POST, "/api/categories/**").hasAuthority("SCOPE_admin")
                                 .requestMatchers(GET,"/api/locations/**").permitAll()
                                 .requestMatchers(POST,"/api/locations/**").authenticated()
+                                .requestMatchers(
+                                        "/v3/api-docs",
+                                        "/v3/api-docs/**",
+                                        "/swagger-resources",
+                                        "/swagger-resources/**",
+                                        "/configuration/ui",
+                                        "/configuration/security",
+                                        "/swagger-ui/**",
+                                        "/webjars/**",
+                                        "/swagger-ui.html").permitAll()
                                 .anyRequest().denyAll())
                 .httpBasic(Customizer.withDefaults());
                 //.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
