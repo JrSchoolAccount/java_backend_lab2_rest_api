@@ -50,7 +50,7 @@ public class LocationService {
                 .toList();
     }
 
-    public LocationDto addLocation(LocationCreateDto locationCreateDto, Integer userId) {
+    public LocationDto addLocation(LocationCreateDto locationCreateDto, String userId) {
         CategoryEntity categoryEntity = locationRepository.findActiveLocationsByCategory(locationCreateDto.categoryId());
 
         LocationEntity location = locationCreateDto.toLocationEntity(categoryEntity, userId);
@@ -72,12 +72,12 @@ public class LocationService {
         return LocationDto.fromLocation(location);
     }
 
-    public void deleteLocation(int id, int userId) throws AccessDeniedException {
+    public void deleteLocation(int id, String userId) throws AccessDeniedException {
         LocationEntity location = locationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Location with ID " + id + " not found."));
 
         // Change to !admin instead of location user check
-        if (location.getUser() != userId) {
+        if (!userId.equals(location.getUser())) {
             throw new AccessDeniedException("You do not have permission to delete this location.");
         }
 

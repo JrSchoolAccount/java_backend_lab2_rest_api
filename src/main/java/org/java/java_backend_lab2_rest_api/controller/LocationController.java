@@ -50,7 +50,7 @@ public class LocationController {
     @PostMapping
     public ResponseEntity<LocationDto> createLocation(@RequestBody LocationCreateDto locationCreateDto) {
 
-        int userId = 2;
+        String userId = "jr";
 
         LocationDto newLocation = locationService.addLocation(locationCreateDto, userId);
 
@@ -69,7 +69,7 @@ public class LocationController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLocation(@PathVariable Integer id) throws AccessDeniedException {
-        int userId = 2;
+        String userId = "jr";
 
         locationService.deleteLocation(id, userId);
 

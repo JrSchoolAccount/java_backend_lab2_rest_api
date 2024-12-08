@@ -10,14 +10,14 @@ import org.java.java_backend_lab2_rest_api.entity.LocationStatus;
 
 public record LocationCreateDto(String name,
                                 Integer categoryId,
-                                Integer userId,
+                                String userId,
                                 String status,
                                 String description,
                                 Double longitude,
                                 Double latitude) {
 
     // Converts this DTO to a LocationEntity
-    public LocationEntity toLocationEntity(CategoryEntity category, Integer userId) {
+    public LocationEntity toLocationEntity(CategoryEntity category, String userId) {
         LocationEntity location = new LocationEntity();
         location.setName(name());
         location.setCategory(category);

@@ -7,13 +7,13 @@ import org.java.java_backend_lab2_rest_api.entity.LocationEntity;
 public record LocationDto(Integer id,
                           String name,
                           Integer categoryId,
-                          Integer userId,
+                          String userId,
                           String status,
                           String description,
                           Double longitude,
                           Double latitude) {
 
-    public LocationDto(Integer id, String name, Integer categoryId, Integer userId, String status, String description, Point<G2D> coordinate) {
+    public LocationDto(Integer id, String name, Integer categoryId, String userId, String status, String description, Point<G2D> coordinate) {
         this(id,
                 name,
                 categoryId,

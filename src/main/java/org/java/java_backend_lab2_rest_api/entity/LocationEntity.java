@@ -31,7 +31,7 @@ public class LocationEntity {
 
     @NotNull
     @Column(name = "user_id", nullable = false)
-    private Integer user;
+    private String user;
 
     @Enumerated(EnumType.STRING)
     @NotNull
