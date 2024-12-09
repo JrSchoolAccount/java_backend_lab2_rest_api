@@ -21,7 +21,7 @@ public record LocationCreateDto(String name,
         LocationEntity location = new LocationEntity();
         location.setName(name());
         location.setCategory(category);
-        location.setUser(userId);
+        location.setUserId(userId);
         location.setStatus(LocationStatus.valueOf(status().toUpperCase()));
         location.setDescription(description());
         location.setCoordinate(createPoint(longitude(), latitude()));

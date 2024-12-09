@@ -77,7 +77,7 @@ public class LocationService {
                 .orElseThrow(() -> new ResourceNotFoundException("Location with ID " + id + " not found."));
 
         // Change to !admin instead of location user check
-        if (!userId.equals(location.getUser())) {
+        if (!userId.equals(location.getUserId())) {
             throw new AccessDeniedException("You do not have permission to delete this location.");
         }
 

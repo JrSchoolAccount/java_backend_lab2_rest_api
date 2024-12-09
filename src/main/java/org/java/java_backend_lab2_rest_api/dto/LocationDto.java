@@ -30,7 +30,7 @@ public record LocationDto(Integer id,
                 location.getId(),
                 location.getName(),
                 location.getCategory().getId(),
-                location.getUser(),
+                location.getUserId(),
                 location.getStatus().toString(),
                 location.getDescription(),
                 location.getCoordinate()
