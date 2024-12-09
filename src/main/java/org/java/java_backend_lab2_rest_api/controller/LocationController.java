@@ -38,7 +38,7 @@ public class LocationController {
     public List<LocationDto> getMyLocations(@AuthenticationPrincipal Jwt jwt) {
         String userId = jwt.getSubject();
 
-        return locationService.allMyLocations(userId);
+        return locationService.getMyLocations(userId);
     }
 
     @GetMapping("/{id}")

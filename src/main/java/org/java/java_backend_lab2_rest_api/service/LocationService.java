@@ -89,4 +89,10 @@ public class LocationService {
                 .map(LocationDto::fromLocation)
                 .orElseThrow(() -> new ResourceNotFoundException("Location with ID " + id + " not found or is not public."));
     }
+
+    public List<LocationDto> getMyLocations(String userId) {
+        List<LocationEntity> locations = locationRepository.findAllByUserId(userId);
+
+        return locations.stream().map(LocationDto::fromLocation).toList();
+    }
 }
