@@ -14,7 +14,6 @@ import org.java.java_backend_lab2_rest_api.entity.LocationStatus;
 
 public record LocationCreateDto(String name,
                                 @NotNull Integer categoryId,
-                                @NotBlank String userId,
                                 @NotBlank @Pattern(regexp = "PUBLIC|PRIVATE", message = "Status must be either PUBLIC or PRIVATE") String status,
                                 @Size(max = 255) String description,
                                 @NotNull Double longitude,

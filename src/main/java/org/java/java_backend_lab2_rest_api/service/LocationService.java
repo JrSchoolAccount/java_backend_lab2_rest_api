@@ -15,6 +15,7 @@ import org.java.java_backend_lab2_rest_api.exception.ResourceNotFoundException;
 import org.java.java_backend_lab2_rest_api.repository.LocationRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -71,10 +72,12 @@ public class LocationService {
         return LocationDto.fromLocation(location);
     }
 
-    public void deleteLocation(Integer id) {
-        LocationEntity location = locationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public void softDeleteLocation(Integer id) {
+        LocationEntity location = locationRepository.findByIdAndDeletedAtIsNull(id).orElseThrow(EntityNotFoundException::new);
 
-        locationRepository.delete(location);
+        location.setDeletedAt(LocalDateTime.now());
+
+        locationRepository.save(location);
     }
 
     public LocationDto getPublicLocationById(Integer id) {

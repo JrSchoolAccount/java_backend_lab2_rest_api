@@ -17,6 +17,8 @@ public interface LocationRepository extends JpaRepository<LocationEntity, Intege
 
     List<LocationEntity> findAllByUserId(String userId);
 
+    Optional<LocationEntity> findByIdAndDeletedAtIsNull(Integer id);
+
     @Query("SELECT l FROM LocationEntity l WHERE l.deletedAt IS NULL AND distance(l.coordinate, :center) <= :radius")
     List<LocationEntity> findActiveLocationsWithinRadius(
             @Param("center") Point<G2D> center,

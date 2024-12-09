@@ -77,7 +77,7 @@ public class LocationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLocation(@PathVariable Integer id) {
 
-        locationService.deleteLocation(id);
+        locationService.softDeleteLocation(id);
 
         return ResponseEntity.noContent().build();
     }
