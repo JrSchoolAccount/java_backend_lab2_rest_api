@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 public class LocationController {
 
-    LocationService locationService;
+    private final LocationService locationService;
 
     public LocationController(LocationService locationService) {
         this.locationService = locationService;
@@ -57,9 +57,9 @@ public class LocationController {
     }
 
     @PostMapping
-    public ResponseEntity<LocationDto> createLocation(@RequestBody LocationCreateDto locationCreateDto) {
-
-        String userId = "jr";
+    public ResponseEntity<LocationDto> createLocation(@AuthenticationPrincipal Jwt jwt,
+                                                      @RequestBody @Valid LocationCreateDto locationCreateDto) {
+        String userId = jwt.getSubject();
 
         LocationDto newLocation = locationService.addLocation(locationCreateDto, userId);
 
@@ -68,8 +68,9 @@ public class LocationController {
 
     @PutMapping("/{id}")
     public ResponseEntity<LocationDto> updateLocation(@PathVariable Integer id,
-                                                      @Valid @RequestBody LocationUpdateDto locationUpdateDto) {
-        int userId = 2;
+                                                      @AuthenticationPrincipal Jwt jwt,
+                                                      @RequestBody @Valid LocationUpdateDto locationUpdateDto) throws AccessDeniedException {
+        String userId = jwt.getSubject();
 
         LocationDto updatedLocation = locationService.updateLocation(id, locationUpdateDto, userId);
 

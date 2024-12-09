@@ -27,6 +27,12 @@ public class LocationService {
         this.locationRepository = locationRepository;
     }
 
+    private static void checkUserAccess(String userId, LocationEntity location) throws AccessDeniedException {
+        if (!userId.equals(location.getUserId())) {
+            throw new AccessDeniedException("You do not have permission to access this location.");
+        }
+    }
+
     public List<LocationDto> allLocations() {
         return locationRepository.findAllActiveLocations().stream()
                 .map(LocationDto::fromLocation)
@@ -60,8 +66,10 @@ public class LocationService {
         return LocationDto.fromLocation(location);
     }
 
-    public LocationDto updateLocation(Integer id, LocationUpdateDto locationUpdateDto, Integer userId) {
+    public LocationDto updateLocation(Integer id, LocationUpdateDto locationUpdateDto, String userId) throws AccessDeniedException {
         LocationEntity location = locationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+
+        checkUserAccess(userId, location);
 
         location.setName(locationUpdateDto.name());
         location.setStatus(LocationStatus.valueOf(locationUpdateDto.status().toUpperCase()));
@@ -76,10 +84,7 @@ public class LocationService {
         LocationEntity location = locationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Location with ID " + id + " not found."));
 
-        // Change to !admin instead of location user check
-        if (!userId.equals(location.getUserId())) {
-            throw new AccessDeniedException("You do not have permission to delete this location.");
-        }
+        checkUserAccess(userId, location);
 
         locationRepository.delete(location);
     }

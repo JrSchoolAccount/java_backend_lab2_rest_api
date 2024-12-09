@@ -9,8 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
@@ -29,6 +28,7 @@ public class Security {
                                 .requestMatchers(GET,"/api/locations/**").permitAll()
                                 .requestMatchers(GET, "/api/locations/my-locations").authenticated()
                                 .requestMatchers(POST,"/api/locations/**").authenticated()
+                                .requestMatchers(PUT, "/api/locations/**").authenticated()
                                 .requestMatchers(
                                         "/v3/api-docs",
                                         "/v3/api-docs/**",

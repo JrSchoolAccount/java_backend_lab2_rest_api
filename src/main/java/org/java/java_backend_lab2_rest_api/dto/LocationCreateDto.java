@@ -1,5 +1,9 @@
 package org.java.java_backend_lab2_rest_api.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.geolatte.geom.G2D;
 import org.geolatte.geom.Point;
 import org.geolatte.geom.builder.DSL;
@@ -9,14 +13,13 @@ import org.java.java_backend_lab2_rest_api.entity.LocationEntity;
 import org.java.java_backend_lab2_rest_api.entity.LocationStatus;
 
 public record LocationCreateDto(String name,
-                                Integer categoryId,
-                                String userId,
-                                String status,
-                                String description,
-                                Double longitude,
-                                Double latitude) {
+                                @NotNull Integer categoryId,
+                                @NotBlank String userId,
+                                @NotBlank @Pattern(regexp = "PUBLIC|PRIVATE", message = "Status must be either PUBLIC or PRIVATE") String status,
+                                @Size(max = 255) String description,
+                                @NotNull Double longitude,
+                                @NotNull Double latitude) {
 
-    // Converts this DTO to a LocationEntity
     public LocationEntity toLocationEntity(CategoryEntity category, String userId) {
         LocationEntity location = new LocationEntity();
         location.setName(name());
@@ -28,7 +31,6 @@ public record LocationCreateDto(String name,
         return location;
     }
 
-    // Helper method to create a Point<G2D> object
     private Point<G2D> createPoint(Double longitude, Double latitude) {
         if (longitude == null || latitude == null) {
             throw new IllegalArgumentException("Longitude and latitude cannot be null");

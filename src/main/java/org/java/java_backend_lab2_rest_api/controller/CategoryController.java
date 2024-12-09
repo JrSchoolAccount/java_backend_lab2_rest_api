@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 public class CategoryController {
 
-    CategoryService categoryService;
+    private final CategoryService categoryService;
 
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
