@@ -12,7 +12,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController
@@ -68,20 +67,17 @@ public class LocationController {
 
     @PutMapping("/{id}")
     public ResponseEntity<LocationDto> updateLocation(@PathVariable Integer id,
-                                                      @AuthenticationPrincipal Jwt jwt,
-                                                      @RequestBody @Valid LocationUpdateDto locationUpdateDto) throws AccessDeniedException {
-        String userId = jwt.getSubject();
+                                                      @RequestBody @Valid LocationUpdateDto locationUpdateDto) {
 
-        LocationDto updatedLocation = locationService.updateLocation(id, locationUpdateDto, userId);
+        LocationDto updatedLocation = locationService.updateLocation(id, locationUpdateDto);
 
         return ResponseEntity.ok(updatedLocation);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteLocation(@PathVariable Integer id) throws AccessDeniedException {
-        String userId = "jr";
+    public ResponseEntity<Void> deleteLocation(@PathVariable Integer id) {
 
-        locationService.deleteLocation(id, userId);
+        locationService.deleteLocation(id);
 
         return ResponseEntity.noContent().build();
     }

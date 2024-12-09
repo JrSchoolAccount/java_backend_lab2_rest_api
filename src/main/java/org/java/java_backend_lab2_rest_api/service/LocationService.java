@@ -15,7 +15,6 @@ import org.java.java_backend_lab2_rest_api.exception.ResourceNotFoundException;
 import org.java.java_backend_lab2_rest_api.repository.LocationRepository;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Service
@@ -25,12 +24,6 @@ public class LocationService {
 
     public LocationService(LocationRepository locationRepository) {
         this.locationRepository = locationRepository;
-    }
-
-    private static void checkUserAccess(String userId, LocationEntity location) throws AccessDeniedException {
-        if (!userId.equals(location.getUserId())) {
-            throw new AccessDeniedException("You do not have permission to access this location.");
-        }
     }
 
     public List<LocationDto> allLocations() {
@@ -66,10 +59,8 @@ public class LocationService {
         return LocationDto.fromLocation(location);
     }
 
-    public LocationDto updateLocation(Integer id, LocationUpdateDto locationUpdateDto, String userId) throws AccessDeniedException {
+    public LocationDto updateLocation(Integer id, LocationUpdateDto locationUpdateDto) {
         LocationEntity location = locationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-
-        checkUserAccess(userId, location);
 
         location.setName(locationUpdateDto.name());
         location.setStatus(LocationStatus.valueOf(locationUpdateDto.status().toUpperCase()));
@@ -80,11 +71,8 @@ public class LocationService {
         return LocationDto.fromLocation(location);
     }
 
-    public void deleteLocation(int id, String userId) throws AccessDeniedException {
-        LocationEntity location = locationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Location with ID " + id + " not found."));
-
-        checkUserAccess(userId, location);
+    public void deleteLocation(Integer id) {
+        LocationEntity location = locationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 
         locationRepository.delete(location);
     }

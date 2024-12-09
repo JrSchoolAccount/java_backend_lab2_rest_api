@@ -27,15 +27,4 @@ public class GlobalExceptionHandler {
         problemDetail.setType(URI.create("https://example.com/errors/duplicate-category"));
         return problemDetail;
     }
-
-    @ExceptionHandler(AccessDeniedException.class)
-    public ProblemDetail handleAccessDenied(AccessDeniedException ex, HttpServletRequest request) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
-        problemDetail.setTitle("Access Denied");
-        problemDetail.setType(URI.create("https://example.com/errors/access-denied"));
-        problemDetail.setInstance(URI.create(request.getRequestURI()));
-        return problemDetail;
-    }
-
-
 }

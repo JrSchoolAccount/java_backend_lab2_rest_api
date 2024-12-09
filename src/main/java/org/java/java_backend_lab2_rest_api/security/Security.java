@@ -40,26 +40,8 @@ public class Security {
                                         "/webjars/**",
                                         "/swagger-ui.html").permitAll()
                                 .anyRequest().denyAll())
-                //.httpBasic(Customizer.withDefaults());
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
 
         return http.build();
     }
-/*
-    @Bean
-    public UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("password")
-                .authorities("SCOPE_admin", "SCOPE_user")
-                .build());
-        manager.createUser(User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
-                .authorities("SCOPE_user")
-                .build());
-        return manager;
-    }
- */
 }
