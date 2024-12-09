@@ -8,6 +8,8 @@ import org.java.java_backend_lab2_rest_api.dto.LocationUpdateDto;
 import org.java.java_backend_lab2_rest_api.service.LocationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.AccessDeniedException;
@@ -30,6 +32,13 @@ public class LocationController {
             return locationService.allPublicLocationsInCategory(categoryId);
         }
         return locationService.allLocations();
+    }
+
+    @GetMapping("/my-locations")
+    public List<LocationDto> getMyLocations(@AuthenticationPrincipal Jwt jwt) {
+        String userId = jwt.getSubject();
+
+        return locationService.allMyLocations(userId);
     }
 
     @GetMapping("/{id}")

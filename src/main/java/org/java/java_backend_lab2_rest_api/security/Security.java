@@ -27,6 +27,7 @@ public class Security {
                                 .requestMatchers(GET, "/api/categories/**").permitAll()
                                 .requestMatchers(POST, "/api/categories/**").hasAuthority("SCOPE_admin")
                                 .requestMatchers(GET,"/api/locations/**").permitAll()
+                                .requestMatchers(GET, "/api/locations/my-locations").authenticated()
                                 .requestMatchers(POST,"/api/locations/**").authenticated()
                                 .requestMatchers(
                                         "/v3/api-docs",
