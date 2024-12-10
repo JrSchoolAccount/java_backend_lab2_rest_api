@@ -25,7 +25,7 @@ class CategoryServiceTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this); // Initialize mock objects
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test

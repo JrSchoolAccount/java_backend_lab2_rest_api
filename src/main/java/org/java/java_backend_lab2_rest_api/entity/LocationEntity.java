@@ -48,8 +48,4 @@ public class LocationEntity {
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
-
-    public boolean isDeleted() {
-        return deletedAt != null;
-    }
 }
