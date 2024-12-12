@@ -28,6 +28,7 @@ public class Security {
                                 .requestMatchers(POST,"/api/locations/**").authenticated()
                                 .requestMatchers(PUT, "/api/locations/**").authenticated()
                                 .requestMatchers(DELETE, "/api/locations/**").authenticated()
+                                .requestMatchers(GET, "/api/get-address/**").permitAll()
                                 .requestMatchers(
                                         "/v3/api-docs",
                                         "/v3/api-docs/**",

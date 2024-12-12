@@ -11,7 +11,7 @@ http://localhost:8080
 ## Endpoints
 
 ### Locations
-
+[readme.md](readme.md)
 1. **Get All Locations**
    `GET /api/locations
 
@@ -108,4 +108,30 @@ http://localhost:8080
   ```
 - **Response**: Created category details.
 
+---
+
+### Get Address by Coordinates
+**Get Address**
+`GET` /api/get-address
+
+**Query Parameters:**
+
+- `latitude` (required): Latitude of the location (type: double).
+- `longitude` (required): Longitude of the location (type: double).
+
+**Response:**
+
+Address of the location.
+
+**Example:**
+
+`GET` /api/get-address?latitude=59.3293&longitude=18.0686
+
+**Response Body:**
+
+```json
+{
+"address": "Stockholm, Sweden"
+}
+```
 ---

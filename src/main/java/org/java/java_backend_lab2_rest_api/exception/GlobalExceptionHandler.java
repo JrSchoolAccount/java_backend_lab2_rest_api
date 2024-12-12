@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.RestClientException;
 
 import java.net.URI;
 
@@ -26,5 +27,10 @@ public class GlobalExceptionHandler {
         problemDetail.setTitle("Duplicate Category Name");
         problemDetail.setType(URI.create("https://example.com/errors/duplicate-category"));
         return problemDetail;
+    }
+
+    @ExceptionHandler(RestClientException.class)
+    public String handleRestClientException(RestClientException e) {
+        return "Unable to fetch display_name. Please try again later.";
     }
 }
